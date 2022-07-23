@@ -1,39 +1,22 @@
-import { pool } from '../../db/index.js';
-const Plotly = require('plotly.js-dist')
-//import { Plotly } from 'plotly.js-dist'
+(async function f(){
+  let res = await fetch('/data');
+  const cords = await res.json();
 
-async function retrieveData(command) {
-  try {
-    const res = await pool.query(command);
-    return res.rows;
-  } catch (error) {
-    console.error(error);
-  }
-}
+  console.log(cords);
+    
+  var xArray = [50,60,70,80,90,100,110,120,130,140,150];
+  var yArray = [7,8,8,9,9,9,10,11,14,14,15];
+  
+  // Define Data
+  var data = [{type: 'densitymapbox', lon: cords.lon, lat: cords.lat, radius: 10}];
+  
+  //var layout = {width: 600, height: 400, mapbox: {style: 'stamen-terrain'}}
+  var layout = {mapbox: {style: 'stamen-terrain', center: {lat: 45.3239, lon: 14.46456}, zoom: 11.5}, width: 600, height: 400};
+  console.log("PRINTAM")
+  Plotly.newPlot("myPlot", data, layout);
+})();
 
-async function showMap() {
-    const latitude = await retrieveData("SELECT locationLatitude FROM location");
-    const longitude = await retrieveData("SELECT locationLongitude FROM location");
-    console.log("latitude", latitude)
-    console.log("longitude", longitude)
 
-    lat = []
-    lon = []
-    for (const obj of latitude){
-        for (const [key, value] of Object.entries(obj)) {
-            lat.push(value)
-          }
-    }
-    for (const obj of longitude){
-        for (const [key, value] of Object.entries(obj)) {
-            lon.push(value)
-          }
-    }
-    console.log(lat)
-    console.log(lon)
-    var data = [{type: 'densitymapbox', lon: lon, lat: lat, radius: 5, zoom: 11.5, center: {lat: 45.3239, lon: 14.46456}}];
-    var layout = {width: 600, height: 400, mapbox: {style: 'stamen-terrain'}}
-    console.log("PRINTAM")
-    Plotly.newPlot("myPlot", data, layout);
-}
+
+
 

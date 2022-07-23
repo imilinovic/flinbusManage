@@ -8,4 +8,13 @@ const pool = new Pool({
   host: '144.91.125.179',
 });
 
-module.exports = { pool: pool };
+async function retrieveData(command) {
+  try {
+    const res = await pool.query(command);
+    return res.rows;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+module.exports = { pool: pool, retrieveData: retrieveData };
