@@ -2,11 +2,10 @@
     <nav class="navigation container">
         <div class="menu">
             <a href="/" class="link menu-item <%if (linkActive === 'home') {%>  link-active  <%}%>">Home</a>
-            <a href="/order" class="link menu-item <%if (linkActive === 'order') {%>  link-active  <%}%>">Order</a>
+            <a href="/leaderboard" class="link menu-item <%if (linkActive === 'cart') {%>  link-active  <%}%>">Leaderboard</a>
             <a href="/" class="link">
                 <img class="scaled-image scaled-image-fixed" src="../images/webbye.jfif" alt="Company logo" style="height:100px; width:150px">
             </a>
-            <a href="/leaderboard" class="link menu-item <%if (linkActive === 'cart') {%>  link-active  <%}%>">Leaderboard</a>
             <% if( user !== undefined ) {%>
             <a href="/user" class="link menu-item <%if (linkActive === 'user') {%>  link-active  <%}%>">User</a>
             <a href="/logout" class="link menu-item <%if (linkActive === 'logout') {%>  link-active  <%}%>">Logout</a>

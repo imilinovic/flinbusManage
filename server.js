@@ -43,7 +43,7 @@ app.use(session({
 
 //definicija ruta
 app.use('/', homeRouter);
-app.use('/order', orderRouter);
+app.use('/trucks', orderRouter);
 app.use('/login', loginRoute);
 app.use('/logout', logoutRoute);
 app.use('/signup', signupRoute);
