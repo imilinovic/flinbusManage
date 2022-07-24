@@ -1,5 +1,6 @@
 const express = require('express');
-const { retrieveData } = require('../db/index.js')
+const { retrieveData } = require('../db/index.js');
+const User = require('../models/UserModel.js');
 
 const router = express.Router();
 
@@ -19,8 +20,16 @@ router.get('/data', async function(req, res){
     res.send(JSON.stringify({lat: lat, lon: lon}));
 })
 
-router.get('/', function(req,res){
-    res.render('home')
+router.get('/', async function(req,res){
+    const counter = await User.fetchAllReports()
+
+    res.render('home', {
+        title: 'Home',
+        linkActive: 'home',
+        user: req.session.user,
+        error: undefined,
+        counter: counter,
+    })
 })
 
 module.exports = router

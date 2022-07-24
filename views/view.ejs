@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title><%= title %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/png" href="./images/flower-icon.png"/>
+    <link rel="stylesheet" type="text/css" href="./vendor/normalize.css">
+    <link rel="stylesheet" type="text/css" href="./styles/main.css">
+    <script src="./scripts/main.js"></script>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+
+</head>
+
+
+<body class="content">
+
+<%- include(`partials/header`); %>
+<main class="main">
+
+    <section class="section secondary-color-bg">
+        <div class="container">
+            <div class="centered-container">
+                <h1 class="decorated-title font-secondary main-color">
+                    <span class="main-color-emphasized">Customer </span> feedback
+                </h1>
+                <form method="post" class="form gutter">
+                    <fieldset class="form-fieldset">
+                        <legend class="form-legend">Please leave us some feedback</legend>
+
+                        <div class="form-group">
+
+                            <label
+                                    class="form-label"
+                                    for="improvements">Which part of the web shop do you think could be improved?
+                            </label>
+                            <select class="form-component" id="improvements" name="improvements">
+                                <% for (const opt of helper.improvements()) { %>
+                                    <option
+                                            <%- helper.isImprovementSelected(opt) %>>
+                                        <%= opt %>
+                                    </option>
+                                <% } %>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label"
+                                   for="improvement-text"
+                            >
+                                If you think improvements are possible, what would you do differently?
+                            </label>
+
+                            <textarea
+                                    id="improvement-text"
+                                    name="improvement-text"
+                                    class="form-input form-component"
+                            ><%-helper.improvementText()%></textarea>
+                        </div>
+
+
+                        <label class="form-label">
+                            How likely are you to recommend our shop to a friend?
+                        </label>
+                        <div class="form-group">
+
+                            <% for (const val of helper.recommendationValues()) { %>
+                                <input class="form-input-radio"
+                                       type="radio"
+                                       name="recommendation-grade"
+                                       id="<%- helper.stringToHTMLId(val) %>"
+                                       value="<%- val %>"
+                                        <%- helper.isRecommendationSelected(val) %>
+                                >
+                                <label class="form-label"
+                                       for="<%- helper.stringToHTMLId(val) %>"
+                                ><%- val %></label>
+                            <% } %>
+
+                        </div>
+
+                        <input class="btn"
+                               type="submit"
+                               formaction="/onsite/save"
+                               value="Save and return to cart">
+                        <input class="btn"
+                               type="submit"
+                               formaction="/onsite/reset"
+                               value="Reset">
+                        <input class="btn push-right"
+                               type="submit"
+                               formaction="/onsite/order"
+                               value="Order now!">
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
+
+<%- include(`partials/footer`); %>
+
+</body>
+
+</html>
