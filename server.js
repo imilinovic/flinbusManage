@@ -53,5 +53,5 @@ app.use('/checkout', checkoutRoute);
 app.use('/onsite', onsiteRoute);
 
 //pokretanje poslužitelja na portu 3000
-app.listen(7001);
+app.listen(8000);
 
